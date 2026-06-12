@@ -1,0 +1,44 @@
+Windows Persistance: 
+Invoke-AtomicTest T1053.005 -TestNumbers 1
+
+Linux Persistance:
+Invoke-AtomicTest T1136.001
+
+
+Windows:
+powershell
+Invoke-AtomicTest T1133
+Invoke-AtomicTest T1059.001
+Invoke-AtomicTest T1053.003
+Invoke-AtomicTest T1548.002
+Invoke-AtomicTest T1070.001
+Invoke-AtomicTest T1083
+Invoke-AtomicTest T1021.002
+Invoke-AtomicTest T1115
+Invoke-AtomicTest T1567
+Invoke-AtomicTest T1486
+
+
+Linux:
+pwsh
+Invoke-AtomicTest T1053.003 
+Invoke-AtomicTest T1083
+Invoke-AtomicTest T1115
+Invoke-AtomicTest T1133
+Invoke-AtomicTest T1486
+
+
+Windows hardening - 
+secedit /export /cfg C:\secpol.cfg
+(Get-Content C:\secpol.cfg) -replace 'PasswordComplexity = 0','PasswordComplexity = 1' | Set-Content C:\secpol.cfg
+secedit /configure /db C:\windows\security\local.sdb /cfg C:\secpol.cfg /areas SECURITYPOLICY
+
+
+Linux Hardening - 
+sudo grep "^PermitRootLogin" /etc/ssh/sshd_config
+sudo sed -i 's/^PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+sudo systemctl restart sshd
+sudo grep "^PermitRootLogin" /etc/ssh/sshd_config
+
+
+
