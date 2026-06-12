@@ -108,7 +108,7 @@ for line in sys.stdin:
     try:
         e = json.loads(line.strip())
         trapped = e.get('trapped','false')
-        mark = '🚨 TRAPPED' if trapped == 'true' else '   probe  '
+        mark = ' TRAPPED' if trapped == 'true' else '   probe  '
         print(f\"{mark} | {e.get('request_method','')} {e.get('request_uri','')} from {e.get('src_ip','')}\" )
     except: pass
 "
